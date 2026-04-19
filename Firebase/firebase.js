@@ -8,8 +8,8 @@ const firebaseConfig = {
     projectId: "dmap-a8cc0",
     storageBucket: "dmap-a8cc0.firebasestorage.app",
     messagingSenderId: "78589855261",
-    appId: process.env.APP_ID,
-    measurementId: process.env.MEASUREMENT_ID
+    appId: "1:78589855261:web:aa396e6cc3062c80b2e8f4",
+    measurementId: "G-3FEVPTYPX5"
 };
 
 // Initialize Firebase
