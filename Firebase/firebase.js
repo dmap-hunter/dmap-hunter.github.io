@@ -3,13 +3,13 @@
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDCJevVaXqyxUjWLdeaqXrXmUEw5POjSEY",
-  authDomain: "dukeforest-96e53.firebaseapp.com",
-  projectId: "dukeforest-96e53",
-  storageBucket: "dukeforest-96e53.firebasestorage.app",
-  messagingSenderId: "807394176812",
-  appId: "1:807394176812:web:f3b887fc8c5df9c6efc689",
-  measurementId: "G-N4C8G3HFNC"
+    apiKey: process.env.API_KEY,
+    authDomain: "dmap-a8cc0.firebaseapp.com",
+    projectId: "dmap-a8cc0",
+    storageBucket: "dmap-a8cc0.firebasestorage.app",
+    messagingSenderId: "78589855261",
+    appId: process.env.APP_ID,
+    measurementId: process.env.MEASUREMENT_ID
 };
 
 // Initialize Firebase
