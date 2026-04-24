@@ -120,9 +120,9 @@ async function addData(Id){
 
 document.getElementById("submit").onclick = function goToCheckout(){
     addData(document.getElementById("id").value);
-    window.location.replace("https://mdt44.github.io/Hunter/hunter.html");
+    window.location.replace("https://dmap-hunter.github.io/Hunter/hunter.html");
 }
 
 document.getElementById("return").onclick = function goToCheckout(){
-    window.location.replace("https://mdt44.github.io/Hunter/hunter.html");
+    window.location.replace("https://dmap-hunter.github.io/Hunter/hunter.html");
 }
