@@ -155,7 +155,7 @@ document.getElementById("nextMap").onclick = function setState(){
 }
 
 document.getElementById("checkoutAccess").onclick = function goToCheckout(){
-    window.location.replace("https://mdt44.github.io/Checkout/checkout.html");
+    window.location.replace("https://dmap-hunter.github.io/Checkout/checkout.html");
 }
 
 function tick() {
