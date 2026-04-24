@@ -13,7 +13,7 @@ async function checkPassword(value){
     console.log(pass === value);
 
     if(value !== pass){
-        window.location.replace("https://mdt44.github.io/Password/password.html");
+        window.location.replace("https://dmap-hunter.github.io/Password/password.html");
     }
 
 }
@@ -32,7 +32,7 @@ async function checkPasswordPass(value){
     console.log(pass === value);
 
     if(value === pass){
-        window.location.replace("https://mdt44.github.io/Research/research.html");
+        window.location.replace("https://dmap-hunter.github.io/Research/research.html");
     }
 
 }
