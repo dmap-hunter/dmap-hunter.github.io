@@ -63,6 +63,9 @@ async function addHunter(spot){
         cells: firebase.firestore.FieldValue.arrayUnion(spot)
     }, { merge: true });
 
+    hunterSpots.push(spot);
+    
+
 }
 
 reserveButton.addEventListener("click", () => {

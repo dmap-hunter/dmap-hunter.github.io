@@ -33,6 +33,6 @@ async function pullReserveSpots(thisDate){
     (cellsH ?? []).forEach(value => hunterSpots.push(value));
 
     console.log(hunterSpots);
-    //drawMap();
+    drawMap();
 
 }

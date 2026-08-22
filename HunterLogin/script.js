@@ -23,7 +23,6 @@ var submitID = document.getElementById("submitID");
 async function checkInitial(){
     var number = document.getElementById("hunterNumber").value;
     var initial = document.getElementById("hunterInitial").value;
-    console.log(initial);
     
     const hunterIDRef = db
         .collection("reserved")
@@ -36,6 +35,7 @@ async function checkInitial(){
 
     console.log(number);
     console.log(initial);
+    console.log(hunterID);
     
     if(hunterID === initial){
         hID = number;
