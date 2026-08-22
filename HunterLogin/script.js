@@ -23,6 +23,7 @@ var submitID = document.getElementById("submitID");
 async function checkInitial(){
     var number = document.getElementById("hunterNumber").value;
     var initial = document.getElementById("hunterInitial").value;
+    console.log(initial);
     
     const hunterIDRef = db
         .collection("reserved")
@@ -34,7 +35,7 @@ async function checkInitial(){
     var hunterID = await snap.data()?.initial;
 
     console.log(number);
-    console.log(intial);
+    console.log(initial);
     
     if(hunterID === initial){
         hID = number;
