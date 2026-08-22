@@ -65,6 +65,7 @@ async function addHunter(spot){
 
     hunterSpots.push(spot);
     
+    drawMap();
 
 }
 
