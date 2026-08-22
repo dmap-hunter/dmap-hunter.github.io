@@ -149,6 +149,8 @@ function drawMap(){
     updateTitle(new Date().getSeconds());
 }
 
+drawMap();
+
 img1.onload = function(){
     pullReserveSpots();
 }
