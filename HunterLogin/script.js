@@ -17,8 +17,8 @@ for (var i = 0; i<initials.length; i++){
     initialSelect.appendChild(opt);
 }
 
-var submitID = document.getElementById("submitID");
 
+var submitID = document.getElementById("submitID");
 
 async function checkInitial(){
     var number = document.getElementById("hunterNumber").value;
@@ -32,10 +32,14 @@ async function checkInitial(){
     
     var snap = await hunterIDRef.get();
     var hunterID = await snap.data()?.initial;
+
+    console.log(number);
+    console.log(intial);
     
     if(hunterID === initial){
         hID = number;
-        window.location.replace("https://mdt44.github.io/Hunter/hunter.html");
+        sessionStorage.setItem("hunterId", hunterID);
+        window.location.href = '../Hunter/hunter.html';
     }
 }
 
@@ -44,5 +48,3 @@ submitID.addEventListener("click", () => {
     checkInitial();
     
 });
-
-
