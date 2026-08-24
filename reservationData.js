@@ -1,6 +1,6 @@
-
 var reservedSpots = [];
 var hunterSpots = [];
+var thisHunterSpots = [];
 
 async function pullReserveSpots(thisDate){
 
@@ -26,13 +26,26 @@ async function pullReserveSpots(thisDate){
     const snapH = await hunterRef.get();
     const cellsH = snapH.data()?.cells;
 
+    const hunterIDRef = db
+        .collection("reserved")
+        .doc("hunters")
+        .collection("hunterID")
+        .doc("h" + hID)
+        .collection("dates")
+        .doc(thisDate);
+    const snapHID = await hunterIDRef.get();
+    const cellsHID = snapHID.data()?.cells;
+
     reservedSpots = [];
     (cells ?? []).forEach(value => reservedSpots.push(value));
 
     hunterSpots = [];
     (cellsH ?? []).forEach(value => hunterSpots.push(value));
 
-    console.log(hunterSpots);
-    drawMap();
+    thisHunterSpots = [];
+    (cellsHID ?? []).forEach(value => thisHunterSpots.push(value));
 
+    console.log(thisHunterSpots);
+
+    drawMap();
 }

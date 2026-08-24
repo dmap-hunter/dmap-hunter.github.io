@@ -1,11 +1,9 @@
-
 const canvas = document.getElementById("mapCanvas");
 const ctx = canvas.getContext("2d");
 
 ctx.canvas.width = 4/3 * window.innerHeight * 0.82;
 ctx.canvas.height = window.innerHeight * 0.82;
 
-//creating base map
 const width = canvas.width; 
 const height = canvas.height;
 const numCol = 31;
@@ -56,13 +54,19 @@ async function addHunter(spot){
         .collection("reserved")
         .doc("hunters")
         .collection("hunterID")
-        .doc("h" + hID);
-
+        .doc("h" + hID)
+        .collection("dates")
+        .doc(thisDate);
 
     await hunterRef.set({
         cells: firebase.firestore.FieldValue.arrayUnion(spot)
     }, { merge: true });
 
+    await hunterIDRef.set({
+        cells: firebase.firestore.FieldValue.arrayUnion(spot)
+    }, { merge: true });
+
+    thisHunterSpots.push(spot);
     hunterSpots.push(spot);
     
     drawMap();
@@ -109,7 +113,7 @@ function drawMap(){
     ctx.clearRect(0, 0, width, height);
         
     ctx.drawImage(state === 0 ? img1 : img2, 0, 0, width, height);
-    //begin drawing and coloring cells
+    
     ctx.beginPath();
 
     const reserveButton = document.getElementById("reserveCell");
@@ -129,6 +133,9 @@ function drawMap(){
             var loc = i + j * numCol + reservedDif * (state);
             if (reservedSpots.includes(loc)){
                 ctx.fillStyle = "red";
+                ctx.fillRect(width / numCol * i, height / numRow * j, width / numCol, height / numRow);
+            } else if(thisHunterSpots.includes(loc)){
+                ctx.fillStyle = "blue";
                 ctx.fillRect(width / numCol * i, height / numRow * j, width / numCol, height / numRow);
             } else if(hunterSpots.includes(loc)){
                 ctx.fillStyle = "black";
@@ -161,11 +168,17 @@ document.getElementById("nextMap").onclick = function setState(){
 }
 
 document.getElementById("checkoutAccess").onclick = function goToCheckout(){
-    window.location.replace("https://dmap-hunter.github.io/Checkout/checkout.html");
+    window.location.href = '../Checkout/checkout.html';
+}
+
+document.getElementById("logout").onclick = function goToLogin(){
+    sessionStorage.setItem("hunterId", 0);
+    hID = 0;
+    loggedIn = false;
+    window.location.href = '../HunterLogin/HunterLogin.html';
 }
 
 function tick() {
-  //get the mins of the current time
   var mins = new Date().getMinutes();
   if (mins == "00") {
     pullReserveSpots();
