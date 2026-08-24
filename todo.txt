@@ -3,3 +3,9 @@
 3) SOLAR PANELS????
 4) Fix dates so not in UTC
 5) Add every hunterID + Name to Firebase
+6) Update CSS:
+    a) Rename checkout
+    b) Add instructions at top
+    c) Remove background
+    d) Consistent text font
+    e) See chat's suggestions

@@ -2,11 +2,11 @@ body {
     background: rgb(240,240,240);
     font: 'Roboto' sans-serif;
     height: 97vh;
-    background-image: url('green-natural-pine-tree-forest-with-mountain-background-watercolor-painting-paper-texture_8087-5837.avif');
+    /*background-image: url('green-natural-pine-tree-forest-with-mountain-background-watercolor-painting-paper-texture_8087-5837.avif');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;*/
 }
 
 h1 {
