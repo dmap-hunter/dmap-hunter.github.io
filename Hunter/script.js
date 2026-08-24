@@ -108,6 +108,17 @@ function updateTitle(timing){
     }
 }
 
+function updateStats(timing){
+    var stats = document.getElementById("stats");
+    stats.style.whiteSpace = "pre-line"
+    var totalCaught = buck + button;
+    console.log(totalCaught);
+    totalCaught = String(totalCaught);
+    totalHours = String(hours);
+    stats.textContent = totalCaught + " deer caught\n" + totalHours + " hours hunted";
+
+}
+
 function drawMap(){
 
     ctx.clearRect(0, 0, width, height);
@@ -154,6 +165,7 @@ function drawMap(){
     }
 
     updateTitle(new Date().getSeconds());
+    updateStats();
 }
 
 drawMap();

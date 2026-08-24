@@ -95,34 +95,43 @@ next.onclick = function(){
 
 
 
-async function addData(Id){
-
-    console.log(Id);
+async function addData(){
 
     const thisDate = (new Date()).toISOString().split("T")[0];
-    
+
     const dataRef = db
-        .collection("Data")
-        .doc(thisDate + " - " +Id);
+        .collection("reserved")
+        .doc("hunters")
+        .collection("hunterID")
+        .doc("h" + hID)
+        .collection("dates")
+        .doc(thisDate);
 
-    console.log(document.getElementById("deerCaught").value);
+    var nums = [0, 0, 0]; //Buck, Button, Doe
+    for(var i = 0;i < deerCaughtTypes.length;i++){
+        if(deerCaughtTypes[i] === 1){
+            nums[0]++
+        } else if(deerCaughtTypes[i] === 2){
+            nums[1]++;
+        } else if(deerCaughtTypes[i] === 3){
+            nums[2]++;
+        }
+    }
 
-    var deerCaught = parseInt(document.getElementById("deerCaught").value);
+    await dataRef.update({
+        buck: nums[0],
+        button: nums[1],
+        doe: nums[2]
+    });
 
-    console.log(deerCaught);
-
-    await dataRef.set({
-        Checkout: firebase.firestore.FieldValue.arrayUnion(deerCaught, parseInt(Id))
-    }, { merge: true });
-
+    window.location.href = '../HunterLogin/HunterLogin.html';
 }
 
 
 document.getElementById("submit").onclick = function goToCheckout(){
-    addData(document.getElementById("id").value);
-    window.location.replace("https://dmap-hunter.github.io/Hunter/hunter.html");
+    addData();
 }
 
 document.getElementById("return").onclick = function goToCheckout(){
-    window.location.replace("https://dmap-hunter.github.io/Hunter/hunter.html");
+    window.location.href = '../Hunter/hunter.html';
 }

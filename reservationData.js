@@ -1,14 +1,14 @@
 var reservedSpots = [];
 var hunterSpots = [];
 var thisHunterSpots = [];
+var buck = 0;
+var button = 0;
+var doe = 0;
+var hours = 0.0;
 
 async function pullReserveSpots(thisDate){
 
-    if (thisDate === undefined){
-        thisDate = (new Date()).toISOString().split("T")[0];
-    }
-
-    //thisDate = (thisDate).toISOString().split("T")[0];
+    thisDate = (new Date()).toISOString().split("T")[0];
 
     const researchRef = db
         .collection("reserved")
@@ -45,7 +45,21 @@ async function pullReserveSpots(thisDate){
     thisHunterSpots = [];
     (cellsHID ?? []).forEach(value => thisHunterSpots.push(value));
 
-    console.log(thisHunterSpots);
+    const statsRef = db
+        .collection("reserved")
+        .doc("hunters")
+        .collection("hunterID")
+        .doc("h" + hID);
+    var snapStats = await statsRef.get();
+    buckT = await snapStats.data()?.buck;
+    buttonT = await snapStats.data()?.button;
+    doeT = await snapStats.data()?.doe;
+    hoursT = await snapStats.data()?.hours;
+
+    if(buckT){buck = buckT}
+    if(buttonT){button = buttonT}
+    if(doeT){doe = doeT}
+    if(hoursT){hours = hoursT}
 
     drawMap();
 }

@@ -1,0 +1,5 @@
+1) Update maps to actual Duke Forest maps w/ hunting regions
+2) Make checkout intuitive (just input three nums of total deer caught)
+3) SOLAR PANELS????
+4) Fix dates so not in UTC
+5) Add every hunterID + Name to Firebase

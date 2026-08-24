@@ -39,13 +39,11 @@ async function checkInitial(){
     
     if(hunterID === initial){
         hID = number;
-        sessionStorage.setItem("hunterId", hunterID);
+        sessionStorage.setItem("hunterId", hID);
         window.location.href = '../Hunter/hunter.html';
     }
 }
 
 submitID.addEventListener("click", () => {
-
     checkInitial();
-    
 });
