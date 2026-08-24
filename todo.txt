@@ -9,3 +9,5 @@
     c) Remove background
     d) Consistent text font
     e) See chat's suggestions
+7) Fix password system
+8) Fix exactness of touch response on gradient
