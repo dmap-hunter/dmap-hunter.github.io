@@ -2,33 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#173f35">
     <link rel="stylesheet" type="text/css" href="../styles.css">
     <link rel="stylesheet" type="text/css" href="hunter.css">
-    <title>Hunter Reservations - DMAP</title>
+    <title>Reserve a Hunting Spot | Duke Forest</title>
     <script src="../hunterLoggedIn.js"></script>
 </head>
-<body>
-
-    <div class="interface">
-        <div class="panel">
-            <button class="sideL" id="nextMap">Switch<br>Maps</button>
-            <button class="sideL" id="cancelCell">Cancel<br>Selection</button>
-            <div class="sideL">
-                <br>
-                <h3>Hunter Stats:</h3>
-                <p id="stats">0 deer caught<br>0 hours hunted</p>
+<body class="hunter-page">
+    <header class="app-header">
+        <div class="brand-block" aria-label="Duke Forest Hunter Reservations">
+            <span class="brand-mark" aria-hidden="true">DF</span>
+            <div>
+                <p class="brand-name">Duke Forest</p>
+                <p class="brand-subtitle">Hunter Reservations</p>
             </div>
-            <button class="sideL" id="logout">Logout</button>
         </div>
-        <canvas id="mapCanvas"></canvas>
-    </div>
 
-    <center>
-        <h1 id="Map Title">Korstian Division</h1>
-        <button class="reserve" id="reserveCell">Reserve Cell</button>
-    </center>
+        <div class="page-heading">
+            <p class="step-label">Hunter reservation</p>
+            <h1>Reserve a Hunting Spot</h1>
+        </div>
 
+        <div class="hunter-badge">
+            <span>Signed in as</span>
+            <strong id="hunterLabel">Hunter</strong>
+        </div>
+    </header>
+
+    <main class="reservation-layout">
+        <section class="map-card" aria-labelledby="mapTitle">
+            <div class="map-toolbar">
+                <div>
+                    <p class="eyebrow">Choose a forest division</p>
+                    <h2 id="mapTitle">Korstian Division</h2>
+                </div>
+
+                <div class="division-tabs" role="group" aria-label="Forest division">
+                    <button type="button" class="division-tab is-active" data-map="0" aria-pressed="true">Korstian</button>
+                    <button type="button" class="division-tab" data-map="1" aria-pressed="false">Durham</button>
+                </div>
+            </div>
+
+            <p id="mapStatus" class="map-status" role="status" aria-live="polite">
+                Loading today’s availability…
+            </p>
+
+            <div id="mapViewport" class="map-viewport">
+                <canvas
+                    id="mapCanvas"
+                    role="img"
+                    aria-label="Reservation map with a 31-column by 23-row selection grid"
+                    aria-describedby="mapInstructions mapStatus"
+                >
+                    Your browser cannot display the interactive reservation map.
+                </canvas>
+            </div>
+
+            <div class="map-controls">
+                <ul class="map-legend" aria-label="Map legend">
+                    <li><span class="legend-swatch available"></span>Available</li>
+                    <li><span class="legend-swatch research"></span>Research area</li>
+                    <li><span class="legend-swatch hunter"></span>Other hunter</li>
+                    <li><span class="legend-swatch yours"></span>Your spot</li>
+                    <li><span class="legend-swatch selected"></span>Selected</li>
+                </ul>
+
+                <div class="zoom-controls" role="group" aria-label="Map zoom">
+                    <button type="button" class="icon-button" id="zoomOut" aria-label="Zoom map out">
+                        <span aria-hidden="true">−</span> Zoom out
+                    </button>
+                    <button type="button" class="icon-button" id="zoomIn" aria-label="Zoom map in">
+                        <span aria-hidden="true">+</span> Zoom in
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="action-panel" aria-label="Reservation controls">
+            <section class="instruction-card">
+                <div class="section-heading-row">
+                    <h2>How to reserve</h2>
+                    <button type="button" class="text-button" id="helpButton">More help</button>
+                </div>
+                <ol id="mapInstructions">
+                    <li>Choose a division.</li>
+                    <li>Tap an <strong>available</strong> square.</li>
+                    <li>Review the location, then reserve it.</li>
+                </ol>
+            </section>
+
+            <section class="selection-card" aria-labelledby="selectionTitle">
+                <p class="eyebrow">Your selection</p>
+                <h2 id="selectionTitle">No spot selected</h2>
+                <p id="selectionDetail">Tap an available square on the map.</p>
+
+                <button type="button" class="primary-action" id="reserveCell" disabled>
+                    Select a spot first
+                </button>
+                <button type="button" class="secondary-action" id="cancelCell" disabled>
+                    Clear selection
+                </button>
+                <p id="reserveStatus" class="action-status" role="status" aria-live="assertive"></p>
+            </section>
+
+            <section class="today-card" aria-labelledby="todayTitle">
+                <div class="section-heading-row">
+                    <h2 id="todayTitle">Your spots today</h2>
+                    <span id="reservationCount" class="count-badge">0</span>
+                </div>
+                <p id="todayReservations">No spots reserved yet.</p>
+            </section>
+
+            <section class="stats-card" aria-labelledby="statsTitle">
+                <h2 id="statsTitle">Your season totals</h2>
+                <div class="stats-grid" id="stats">
+                    <div><strong id="deerCount">0</strong><span>deer registered</span></div>
+                    <div><strong id="hoursCount">0</strong><span>hours hunted</span></div>
+                </div>
+            </section>
+
+            <div class="utility-actions">
+                <button type="button" class="secondary-action" id="refreshMap">Refresh availability</button>
+                <p id="lastUpdated" class="last-updated">Not refreshed yet</p>
+                <button type="button" class="logout-action" id="logout">Finish and log out</button>
+            </div>
+        </aside>
+    </main>
+
+    <dialog id="helpDialog" class="app-dialog" aria-labelledby="helpTitle">
+        <h2 id="helpTitle">Using the reservation map</h2>
+        <p>Use the division buttons to change maps. Tap any uncolored square to select it. Colored squares are already in use and cannot be selected.</p>
+        <p>If the squares are difficult to tap, use <strong>Zoom in</strong>. You can then drag the map to see another area.</p>
+        <form method="dialog">
+            <button class="primary-action" value="close">Close help</button>
+        </form>
+    </dialog>
+
+    <dialog id="logoutDialog" class="app-dialog" aria-labelledby="logoutTitle">
+        <h2 id="logoutTitle">Finish this session?</h2>
+        <p>Make sure the spots listed under <strong>Your spots today</strong> are correct. Logging out keeps all completed reservations.</p>
+        <div class="dialog-actions">
+            <form method="dialog">
+                <button class="secondary-action" value="cancel">Go back</button>
+            </form>
+            <button type="button" class="logout-action" id="confirmLogout">Yes, log out</button>
+        </div>
+    </dialog>
 
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
@@ -37,6 +157,5 @@
     <script src="../Firebase/firebase.js"></script>
     <script src="../reservationData.js"></script>
     <script src="script.js"></script>
-
 </body>
 </html>

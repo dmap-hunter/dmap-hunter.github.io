@@ -30,7 +30,13 @@ updateSliderD();
 
 async function addData(){
 
-    const thisDate = (new Date()).toISOString().split("T")[0];
+    const formatter = new Intl.DateTimeFormat("fr-CA", { // 'fr-CA' naturally uses YYYY-MM-DD format
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    });
+    thisDate = formatter.format(new Date());
 
     const dataRef = db
         .collection("reserved")
