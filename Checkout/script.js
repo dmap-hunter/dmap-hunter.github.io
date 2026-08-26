@@ -1,99 +1,34 @@
-var decrease = document.getElementById("decrease");
-var increase = document.getElementById("increase");
-var deerCaught = document.getElementById("deerCaught");
+const bucksS = document.querySelector("#bucks");
+const buttonsS = document.querySelector("#buttons");
+const doesS = document.querySelector("#does");
 
-var deerCaughtNum = 0;
+const updateSliderB = () => {
+  const { min, max, value } = bucksS;
+  const progress = ((value - min) / (max - min)) * 100;
 
-var deerTitle = document.getElementById("deerTitle");
-var deerType = document.getElementById("deerType");
-var buck = document.getElementById("buck");
-var button = document.getElementById("button");
-var doe = document.getElementById("doe");
+  bucksS.style.setProperty("--fill", `${progress}%`);
+};
+const updateSliderBu = () => {
+  const { min, max, value } = buttonsS;
+  const progress = ((value - min) / (max - min)) * 100;
 
-var typesOfDeer =  ["----", "BUCK", "BUTTON", "DOE"];
-var deerCaughtTypes = [];
+  buttonsS.style.setProperty("--fill", `${progress}%`);
+};
+const updateSliderD = () => {
+  const { min, max, value } = doesS;
+  const progress = ((value - min) / (max - min)) * 100;
 
-var prev = document.getElementById("prev");
-var next = document.getElementById("next");
-
-var deerSelected = 1;
-
-function changeDeerTypeDisplay(display){
-    deerTitle.style.visibility = display;
-    deerType.style.visibility = display;
-    buck.style.visibility = display;
-    button.style.visibility = display;
-    doe.style.visibility = display;
-    prev.style.visibility = display;
-    next.style.visibility = display;
-}
-changeDeerTypeDisplay("hidden");
-
-function setDeerTitle(){
-    deerTitle.textContent = "Deer #" + deerSelected + " Type:";
-    deerType.textContent = typesOfDeer[deerCaughtTypes[deerSelected - 1]];
-}
-
-decrease.onclick = function(){
-    if (deerCaughtNum > 0){
-        deerCaughtNum--;
-        deerCaught.textContent = deerCaughtNum;
-        deerCaughtTypes.pop();
-        if(deerCaughtNum === 0){
-            changeDeerTypeDisplay("hidden");
-        }
-        if(deerSelected > deerCaughtNum){
-            deerSelected--;
-            setDeerTitle();
-        }
-    }
+  doesS.style.setProperty("--fill", `${progress}%`);
 };
 
-increase.onclick = function(){
-    if (deerCaughtNum < 5){
-        deerCaughtNum++;
-        deerCaught.textContent = deerCaughtNum;
-        deerCaughtTypes.push(0);
-        if(deerSelected < 1){
-            deerSelected = 1;
-            setDeerTitle();
-        }
-        changeDeerTypeDisplay("visible");
-    }
-};
+bucksS.addEventListener("input", updateSliderB);
+buttonsS.addEventListener("input", updateSliderBu);
+doesS.addEventListener("input", updateSliderD);
+updateSliderB();
+updateSliderBu();
+updateSliderD();
 
-buck.onclick = function(){
-    deerCaughtTypes[deerSelected - 1] = 1;
-    setDeerTitle();
-}
-
-button.onclick = function(){
-    deerCaughtTypes[deerSelected - 1] = 2;
-    console.log(deerCaughtTypes);
-    setDeerTitle();
-}
-
-doe.onclick = function(){
-    deerCaughtTypes[deerSelected - 1] = 3;
-    setDeerTitle();
-}
-
-
-prev.onclick = function(){
-    if(deerSelected > 1){
-        deerSelected--;
-        setDeerTitle();
-    }
-}
-next.onclick = function(){
-    if(deerSelected < deerCaughtNum){
-        deerSelected++;
-        setDeerTitle();
-    }
-}
-
-
-
+console.log(doesS.value);
 
 async function addData(){
 
@@ -107,16 +42,7 @@ async function addData(){
         .collection("dates")
         .doc(thisDate);
 
-    var nums = [0, 0, 0]; //Buck, Button, Doe
-    for(var i = 0;i < deerCaughtTypes.length;i++){
-        if(deerCaughtTypes[i] === 1){
-            nums[0]++
-        } else if(deerCaughtTypes[i] === 2){
-            nums[1]++;
-        } else if(deerCaughtTypes[i] === 3){
-            nums[2]++;
-        }
-    }
+    var nums = [bucksS.value, buttonsS.value, doesS.value]; //Buck, Button, Doe
 
     await dataRef.update({
         buck: nums[0],
@@ -130,8 +56,4 @@ async function addData(){
 
 document.getElementById("submit").onclick = function goToCheckout(){
     addData();
-}
-
-document.getElementById("return").onclick = function goToCheckout(){
-    window.location.href = '../Hunter/hunter.html';
 }

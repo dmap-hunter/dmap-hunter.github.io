@@ -11,3 +11,4 @@
     e) See chat's suggestions
 7) Fix password system
 8) Fix exactness of touch response on gradient
+9) Test on actual tablet

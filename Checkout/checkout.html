@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
     <link rel="stylesheet" type="text/css" href="checkout.css">
     <title>Hunter Checkout - DMAP</title>
     <script src="../hunterLoggedIn.js"></script>
@@ -11,38 +12,35 @@
 
     <center>
 
-        <h1>Checkout</h1>
+        <h3>Adult Bucks caught today: </h3>
+        <input placeholder="Adult Bucks" id="bucks" type="range" min="0" max="5" value="0" step="1" />
+        <div class="tick-labels" aria-hidden="true">
+            <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
 
-        <h2>Enter the number of Deer Caught</h2>
-        
-        <span id="deerCaught">0</span>
+        <h3>Number of Button Bucks caught today:</h3>
+        <input placeholder="Buttons" id="buttons" type="range" min="0" max="5" value="0" step="1" />
+        <div class="tick-labels" aria-hidden="true">
+            <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
 
-        <br><br><br>
-        
-        <h2 id="deerTitle">Deer #1 Type:</h2>
-        <h3 id="deerType">----</h3>
-        <button id="buck">Buck</button>
-        <button id="button">Button</button>
-        <button id="doe">Doe</button>
-        <br><br>
-        <button id="prev">Previous Deer</button>
-        <button id="next">Next Deer</button>
+        <h3>Number of Does caught today:</h3>
+        <input placeholder="Does" id="does" type="range" min="0" max="5" value="0" step="1" />
+        <div class="tick-labels" aria-hidden="true">
+            <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
 
-        <br><br><br><br><br>
         <button id="submit">Submit</button>
         <br><br>
 
-        <button id="return">Return to Map</button>
-        <br>
-
     </center>
+      
 
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-auth-compat.js"></script>
 
     <script src="../Firebase/firebase.js"></script>
-    <script src="../reservationData.js"></script>
     <script src="script.js"></script>
 
 </body>
