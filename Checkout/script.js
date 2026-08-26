@@ -28,8 +28,6 @@ updateSliderB();
 updateSliderBu();
 updateSliderD();
 
-console.log(doesS.value);
-
 async function addData(){
 
     const thisDate = (new Date()).toISOString().split("T")[0];
@@ -56,4 +54,8 @@ async function addData(){
 
 document.getElementById("submit").onclick = function goToCheckout(){
     addData();
+}
+
+document.getElementById("goback").onclick = function goToCheckout(){
+    window.location.href = '../Transition/choose.html';
 }

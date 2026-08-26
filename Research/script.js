@@ -7,7 +7,13 @@ const ctx = canvas.getContext("2d");
 ctx.canvas.width = 4/3 * window.innerHeight * 0.75;
 ctx.canvas.height = window.innerHeight * 0.75;
 
-var date = new Date();
+const formatter = new Intl.DateTimeFormat("fr-CA", { // 'fr-CA' naturally uses YYYY-MM-DD format
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+});
+var Date = formatter.format(new Date());
 
 //creating base map
 const width = canvas.width; 

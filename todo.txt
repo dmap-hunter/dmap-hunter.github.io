@@ -1,14 +1,20 @@
-1) Update maps to actual Duke Forest maps w/ hunting regions
-2) Make checkout intuitive (just input three nums of total deer caught)
-3) SOLAR PANELS????
+Software:
+
 4) Fix dates so not in UTC
-5) Add every hunterID + Name to Firebase
 6) Update CSS:
-    a) Rename checkout
     b) Add instructions at top
     c) Remove background
     d) Consistent text font
     e) See chat's suggestions
 7) Fix password system
-8) Fix exactness of touch response on gradient
+8) Fix exactness of touch response on map
+9) Fix all dates
+10) Fix dates in dates.js
+
+Post-software:
+1) Update maps to actual Duke Forest maps w/ hunting regions
+3) SOLAR PANELS????
+5) Add every hunterID + Name to Firebase
 9) Test on actual tablet
+10) Replace phone # on checkout page.
+
