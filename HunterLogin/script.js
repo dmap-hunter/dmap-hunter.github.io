@@ -1,3 +1,9 @@
+var storedHunterId = 0;
+sessionStorage.setItem("hunterID", 0);
+var loggedIn = false;
+var hID = 0;
+
+
 var numberSelect = document.getElementById("hunterNumber");
 
 for (var i = 0; i<=50; i++){
@@ -39,7 +45,7 @@ async function checkInitial(){
     
     if(hunterID === initial){
         hID = number;
-        sessionStorage.setItem("hunterId", hID);
+        sessionStorage.setItem("hunterID", hID);
         window.location.href = '../Transition/choose.html';
     }
 }

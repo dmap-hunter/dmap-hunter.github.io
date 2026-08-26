@@ -408,10 +408,9 @@ document.getElementById("logout").addEventListener("click", () => {
 });
 
 document.getElementById("confirmLogout").addEventListener("click", () => {
-    sessionStorage.removeItem("hunterId");
     sessionStorage.removeItem("hunterID");
     loggedIn = false;
-    hID = null;
+    hID = 0;
     window.location.href = "../HunterLogin/HunterLogin.html";
 });
 
