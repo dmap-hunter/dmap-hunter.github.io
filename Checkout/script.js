@@ -50,7 +50,7 @@ async function addData(){
         doe: nums[2]
     });
 
-    window.location.href = '../HunterLogin/HunterLogin.html';
+    window.location.href = '../Transition/postCheckout.html';
 }
 
 
