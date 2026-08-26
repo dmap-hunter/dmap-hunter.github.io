@@ -179,10 +179,6 @@ document.getElementById("nextMap").onclick = function setState(){
     drawMap();
 }
 
-document.getElementById("checkoutAccess").onclick = function goToCheckout(){
-    window.location.href = '../Checkout/checkout.html';
-}
-
 document.getElementById("logout").onclick = function goToLogin(){
     sessionStorage.setItem("hunterId", 0);
     hID = 0;
