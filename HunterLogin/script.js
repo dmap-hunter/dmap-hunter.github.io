@@ -40,7 +40,7 @@ async function checkInitial(){
     if(hunterID === initial){
         hID = number;
         sessionStorage.setItem("hunterId", hID);
-        window.location.href = '../Hunter/hunter.html';
+        window.location.href = '../Transition/choose.html';
     }
 }
 
