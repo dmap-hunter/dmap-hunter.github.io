@@ -92,11 +92,19 @@ function resizeCanvas() {
         ? (mapViewport.scrollTop + mapViewport.clientHeight / 2) / mapViewport.scrollHeight
         : 0.5;
 
-    canvas.style.width = `${ZOOM_LEVELS[zoomIndex] * 100}%`;
-    const cssWidth = Math.max(1, canvas.getBoundingClientRect().width);
-    const cssHeight = cssWidth * NUM_ROWS / NUM_COLUMNS;
+    const viewportWidth = Math.max(1, mapViewport.clientWidth);
+    const viewportHeight = Math.max(1, mapViewport.clientHeight);
+    const mapRatio = NUM_COLUMNS / NUM_ROWS;
+    const baseWidth = Math.min(viewportWidth, viewportHeight * mapRatio);
+    const baseHeight = baseWidth / mapRatio;
+    const zoom = ZOOM_LEVELS[zoomIndex];
+    const cssWidth = baseWidth * zoom;
+    const cssHeight = baseHeight * zoom;
     const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
+    canvas.style.width = `${cssWidth}px`;
+    canvas.style.height = `${cssHeight}px`;
+    canvas.style.margin = zoomIndex === 0 ? "auto" : "0";
     canvas.width = Math.round(cssWidth * pixelRatio);
     canvas.height = Math.round(cssHeight * pixelRatio);
     drawMap();
@@ -240,7 +248,13 @@ function updateSelectionPanel() {
 
 function updateTodayReservations() {
     const count = thisHunterSpots.length;
-    document.getElementById("reservationCount").textContent = String(count);
+    const reservationCount = document.getElementById("reservationCount");
+    reservationCount.textContent = String(count);
+    reservationCount.setAttribute(
+        "aria-label",
+        `${count} ${count === 1 ? "spot" : "spots"} reserved`
+    );
+    document.getElementById("dialogReservationCount").textContent = String(count);
     document.getElementById("todayReservations").textContent = count
         ? thisHunterSpots.map((spot) => cellLabel(spot, true)).join("; ")
         : "No spots reserved yet.";
@@ -403,14 +417,19 @@ document.getElementById("helpButton").addEventListener("click", () => {
     openDialog(document.getElementById("helpDialog"));
 });
 
+document.getElementById("todayButton").addEventListener("click", () => {
+    openDialog(document.getElementById("todayDialog"));
+});
+
 document.getElementById("logout").addEventListener("click", () => {
     openDialog(document.getElementById("logoutDialog"));
 });
 
 document.getElementById("confirmLogout").addEventListener("click", () => {
+    sessionStorage.removeItem("hunterId");
     sessionStorage.removeItem("hunterID");
     loggedIn = false;
-    hID = 0;
+    hID = null;
     window.location.href = "../HunterLogin/HunterLogin.html";
 });
 

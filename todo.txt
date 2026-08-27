@@ -17,4 +17,4 @@ Post-software:
 5) Add every hunterID + Name to Firebase
 9) Test on actual tablet
 10) Replace phone # on checkout page.
-
+11) add catch in checkout if hunter checkouts without reserving cells

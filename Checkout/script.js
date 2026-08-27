@@ -38,6 +38,18 @@ async function addData(){
     });
     thisDate = formatter.format(new Date());
 
+    const hunterRef = db
+        .collection("reserved")
+        .doc("hunters")
+        .collection("hunterID")
+        .doc("h" + hID);
+    var snap = await hunterRef.get();
+    var pBuck = parseInt(await snap.data()?.buck);
+    var pButton = parseInt(await snap.data()?.button);
+    var pDoe = parseInt(await snap.data()?.doe);
+
+    console.log(hunterRef);
+
     const dataRef = db
         .collection("reserved")
         .doc("hunters")
@@ -45,13 +57,28 @@ async function addData(){
         .doc("h" + hID)
         .collection("dates")
         .doc(thisDate);
+    var snap2 = await dataRef.get();
+    var tBuck = parseInt(await snap2.data()?.buck);
+    var tButton = parseInt(await snap2.data()?.button);
+    var tDoe = parseInt(await snap2.data()?.doe);
 
-    var nums = [bucksS.value, buttonsS.value, doesS.value]; //Buck, Button, Doe
+    var nums = [parseInt(bucksS.value), parseInt(buttonsS.value), parseInt(doesS.value)]; //Buck, Button, Doe
 
-    await dataRef.update({
-        buck: nums[0],
-        button: nums[1],
-        doe: nums[2]
+    try{
+        await dataRef.update({
+            buck: tBuck + nums[0],
+            button: tButton + nums[1],
+           doe: tDoe + nums[2]
+        });
+    } catch{
+        //window.location.href = '../Transition/choose.html';
+        return;
+    }
+
+    await hunterRef.update({
+        buck: pBuck + nums[0],
+        button: pButton + nums[1],
+        doe: pDoe + nums[2]
     });
 
     window.location.href = '../Transition/postCheckout.html';
