@@ -45,7 +45,7 @@ loginBtn.addEventListener("click", async () => {
 auth.onAuthStateChanged((user) => {
   if (user) {
     console.log("User logged in:", user.email);
-    window.location.href = '../HunterLogin/HunterLogin.html';
+    window.location.href = '../Research/research.html';8
   } else {
     console.log("No user logged in");
   }

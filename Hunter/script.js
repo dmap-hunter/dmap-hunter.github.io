@@ -33,6 +33,9 @@ const selectionTitle = document.getElementById("selectionTitle");
 const selectionDetail = document.getElementById("selectionDetail");
 const reserveStatus = document.getElementById("reserveStatus");
 const lastUpdated = document.getElementById("lastUpdated");
+const researchNotice = document.getElementById("researchNotice");
+const researchNoticePreview = document.getElementById("researchNoticePreview");
+const researchNoticeText = document.getElementById("researchNoticeText");
 const divisionTabs = [...document.querySelectorAll(".division-tab")];
 
 function spotForCell(column, row, mapIndex = activeMap) {
@@ -82,6 +85,22 @@ function setMapStatus(message, tone = "") {
 function setReserveStatus(message = "", tone = "") {
     reserveStatus.textContent = message;
     reserveStatus.classList.toggle("is-success", tone === "success");
+}
+
+async function loadResearchNotice() {
+    const noticeRef = db
+        .collection("reserved")
+        .doc("researchers")
+        .collection("messages")
+        .doc("hunters");
+    const snapshot = await noticeRef.get();
+    const data = snapshot.data() || {};
+    const text = typeof data.text === "string" ? data.text.trim() : "";
+    const active = Boolean(data.active && text);
+
+    researchNotice.hidden = !active;
+    researchNoticePreview.textContent = active ? text : "";
+    researchNoticeText.textContent = active ? text : "";
 }
 
 function resizeCanvas() {
@@ -254,7 +273,7 @@ function updateTodayReservations() {
         "aria-label",
         `${count} ${count === 1 ? "spot" : "spots"} reserved`
     );
-    //document.getElementById("dialogReservationCount").textContent = String(count);
+    document.getElementById("dialogReservationCount").textContent = String(count);
     document.getElementById("todayReservations").textContent = count
         ? thisHunterSpots.map((spot) => cellLabel(spot, true)).join("; ")
         : "No spots reserved yet.";
@@ -330,6 +349,11 @@ async function refreshAvailability(userRequested = false) {
 
     try {
         await pullReserveSpots();
+        try {
+            await loadResearchNotice();
+        } catch (noticeError) {
+            console.warn("Could not refresh the research notice:", noticeError);
+        }
         rebuildAvailabilityIndex();
         if (selectedSpot >= 0 && spotStatus(selectedSpot) !== "available") selectedSpot = -1;
         const refreshedAt = new Date();
@@ -417,6 +441,14 @@ document.getElementById("helpButton").addEventListener("click", () => {
     openDialog(document.getElementById("helpDialog"));
 });
 
+document.getElementById("todayButton").addEventListener("click", () => {
+    openDialog(document.getElementById("todayDialog"));
+});
+
+researchNotice.addEventListener("click", () => {
+    openDialog(document.getElementById("researchNoticeDialog"));
+});
+
 document.getElementById("logout").addEventListener("click", () => {
     openDialog(document.getElementById("logoutDialog"));
 });
@@ -439,7 +471,7 @@ if (typeof ResizeObserver === "function") {
     new ResizeObserver(scheduleCanvasResize).observe(mapViewport);
 }
 
-//document.getElementById("hunterLabel").textContent = `Hunter #${hID}`;
+document.getElementById("hunterLabel").textContent = `Hunter #${hID}`;
 rebuildAvailabilityIndex();
 updateInterface();
 scheduleCanvasResize();

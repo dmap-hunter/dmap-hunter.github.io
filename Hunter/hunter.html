@@ -11,29 +11,36 @@
 </head>
 <body class="hunter-page">
     <main class="reservation-layout">
-        <section class="map-card" aria-labelledby="mapTitle">
+        <section class="map-card" aria-labelledby="pageTitle">
             <div class="map-toolbar">
-                <div>
-                    <p class="eyebrow">Choose a forest division</p>
-                    <h2 id="mapTitle">Korstian Division</h2>
+                <div class="map-heading">
+                    <h1 id="pageTitle">Reserve a Hunting Spot</h1>
+                    <p id="mapTitle">Korstian Division</p>
                 </div>
 
-                <div class="division-tabs" role="group" aria-label="Forest division">
+                <div class="division-tabs" role="group" aria-label="Choose a forest division">
                     <button type="button" class="division-tab is-active" data-map="0" aria-pressed="true">Korstian</button>
                     <button type="button" class="division-tab" data-map="1" aria-pressed="false">Durham</button>
                 </div>
             </div>
 
-            <p id="mapStatus" class="map-status" role="status" aria-live="polite">
-                Loading today’s availability…
-            </p>
+            <div class="map-feedback">
+                <p id="mapStatus" class="map-status" role="status" aria-live="polite">
+                    Loading today’s availability…
+                </p>
+                <button type="button" id="researchNotice" class="research-notice" hidden>
+                    <span>Message from Duke Forest</span>
+                    <strong id="researchNoticePreview"></strong>
+                </button>
+            </div>
 
             <div id="mapViewport" class="map-viewport">
                 <canvas
                     id="mapCanvas"
+                    tabindex="0"
                     role="img"
                     aria-label="Reservation map with a 31-column by 23-row selection grid"
-                    aria-describedby="mapInstructions mapStatus"
+                    aria-describedby="mapStatus"
                 >
                     Your browser cannot display the interactive reservation map.
                 </canvas>
@@ -42,38 +49,26 @@
             <div class="map-controls">
                 <ul class="map-legend" aria-label="Map legend">
                     <li><span class="legend-swatch available"></span>Available</li>
-                    <li><span class="legend-swatch research"></span>Research area</li>
-                    <li><span class="legend-swatch hunter"></span>Other hunter</li>
-                    <li><span class="legend-swatch yours"></span>Your spot</li>
+                    <li><span class="legend-swatch research"></span>Research</li>
+                    <li><span class="legend-swatch hunter"></span>Hunter</li>
+                    <li><span class="legend-swatch yours"></span>Yours</li>
                     <li><span class="legend-swatch selected"></span>Selected</li>
                 </ul>
 
                 <div class="zoom-controls" role="group" aria-label="Map zoom">
                     <button type="button" class="icon-button" id="zoomOut" aria-label="Zoom map out">
-                        <span aria-hidden="true">−</span> Zoom out
+                        <span aria-hidden="true">−</span> Zoom
                     </button>
                     <button type="button" class="icon-button" id="zoomIn" aria-label="Zoom map in">
-                        <span aria-hidden="true">+</span> Zoom in
+                        <span aria-hidden="true">+</span> Zoom
                     </button>
                 </div>
             </div>
         </section>
 
         <aside class="action-panel" aria-label="Reservation controls">
-            <section class="instruction-card">
-                <div class="section-heading-row">
-                    <h2>How to reserve</h2>
-                    <button type="button" class="text-button" id="helpButton">More help</button>
-                </div>
-                <ol id="mapInstructions">
-                    <li>Choose a division.</li>
-                    <li>Tap an <strong>available</strong> square.</li>
-                    <li>Review the location, then reserve it.</li>
-                </ol>
-            </section>
-
             <section class="selection-card" aria-labelledby="selectionTitle">
-                <p class="eyebrow">Your selection</p>
+                <p class="eyebrow">Selected square</p>
                 <h2 id="selectionTitle">No spot selected</h2>
                 <p id="selectionDetail">Tap an available square on the map.</p>
 
@@ -86,42 +81,74 @@
                 <p id="reserveStatus" class="action-status" role="status" aria-live="assertive"></p>
             </section>
 
-            <section class="today-card" aria-labelledby="todayTitle">
-                <div class="section-heading-row">
-                    <h2 id="todayTitle">Your spots today</h2>
-                    <span id="reservationCount" class="count-badge">0</span>
-                </div>
-                <p id="todayReservations">No spots reserved yet.</p>
-            </section>
-
-            <section class="stats-card" aria-labelledby="statsTitle">
-                <h2 id="statsTitle">Your season totals</h2>
-                <div class="stats-grid" id="stats">
-                    <div><strong id="deerCount">0</strong><span>deer registered</span></div>
-                    <div><strong id="hoursCount">0</strong><span>hours hunted</span></div>
-                </div>
-            </section>
+            <div class="quick-actions" aria-label="More options">
+                <button type="button" class="menu-action" id="helpButton">
+                    <span class="menu-icon" aria-hidden="true">?</span>
+                    <span>Help</span>
+                </button>
+                <button type="button" class="menu-action" id="todayButton">
+                    <span>Today’s spots</span>
+                    <span id="reservationCount" class="count-badge" aria-label="0 spots reserved">0</span>
+                </button>
+            </div>
 
             <div class="utility-actions">
-                <button type="button" class="secondary-action" id="refreshMap">Refresh availability</button>
+                <button type="button" class="secondary-action" id="refreshMap">Refresh map</button>
                 <p id="lastUpdated" class="last-updated">Not refreshed yet</p>
                 <button type="button" class="logout-action" id="logout">Finish and log out</button>
+            </div>
+
+            <div class="account-footer" aria-label="Current account">
+                <span>Signed in as</span>
+                <strong id="hunterLabel">Hunter</strong>
             </div>
         </aside>
     </main>
 
     <dialog id="helpDialog" class="app-dialog" aria-labelledby="helpTitle">
-        <h2 id="helpTitle">Using the reservation map</h2>
-        <p>Use the division buttons to change maps. Tap any uncolored square to select it. Colored squares are already in use and cannot be selected.</p>
-        <p>If the squares are difficult to tap, use <strong>Zoom in</strong>. You can then drag the map to see another area.</p>
+        <h2 id="helpTitle">How to reserve a spot</h2>
+        <ol class="help-steps">
+            <li>Choose <strong>Korstian</strong> or <strong>Durham</strong>.</li>
+            <li>Tap an uncolored square on the map.</li>
+            <li>Check the row and column, then tap <strong>Reserve</strong>.</li>
+        </ol>
+        <p>Colored squares are unavailable. Use the zoom buttons if you need a larger target, then drag the map to move around.</p>
         <form method="dialog">
-            <button class="primary-action" value="close">Close help</button>
+            <button class="primary-action" value="close">Close</button>
+        </form>
+    </dialog>
+
+    <dialog id="todayDialog" class="app-dialog" aria-labelledby="todayTitle">
+        <div class="dialog-title-row">
+            <h2 id="todayTitle">Your spots today</h2>
+            <span id="dialogReservationCount" class="count-badge">0</span>
+        </div>
+        <p id="todayReservations" class="reservation-list">No spots reserved yet.</p>
+
+        <div class="dialog-stats" aria-labelledby="statsTitle">
+            <h3 id="statsTitle">Season totals</h3>
+            <div class="stats-grid" id="stats">
+                <div><strong id="deerCount">0</strong><span>deer registered</span></div>
+                <div><strong id="hoursCount">0</strong><span>hours hunted</span></div>
+            </div>
+        </div>
+
+        <form method="dialog">
+            <button class="primary-action" value="close">Close</button>
+        </form>
+    </dialog>
+
+    <dialog id="researchNoticeDialog" class="app-dialog" aria-labelledby="researchNoticeTitle">
+        <h2 id="researchNoticeTitle">Message from Duke Forest</h2>
+        <p id="researchNoticeText"></p>
+        <form method="dialog">
+            <button class="primary-action" value="close">Close</button>
         </form>
     </dialog>
 
     <dialog id="logoutDialog" class="app-dialog" aria-labelledby="logoutTitle">
         <h2 id="logoutTitle">Finish this session?</h2>
-        <p>Make sure the spots listed under <strong>Your spots today</strong> are correct. Logging out keeps all completed reservations.</p>
+        <p>Your completed reservations will stay saved after you log out.</p>
         <div class="dialog-actions">
             <form method="dialog">
                 <button class="secondary-action" value="cancel">Go back</button>

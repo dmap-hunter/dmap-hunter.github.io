@@ -1,15 +1,8 @@
 Software:
-
-4) Fix dates so not in UTC
-6) Update CSS:
-    b) Add instructions at top
-    c) Remove background
-    d) Consistent text font
-    e) See chat's suggestions
 7) Fix password system
-8) Fix exactness of touch response on map
-9) Fix all dates
-10) Fix dates in dates.js
+12) add auto-log-out
+11) add catch in checkout if hunter checkouts without reserving cells
+
 
 Post-software:
 1) Update maps to actual Duke Forest maps w/ hunting regions
@@ -17,4 +10,3 @@ Post-software:
 5) Add every hunterID + Name to Firebase
 9) Test on actual tablet
 10) Replace phone # on checkout page.
-11) add catch in checkout if hunter checkouts without reserving cells
