@@ -254,7 +254,7 @@ function updateTodayReservations() {
         "aria-label",
         `${count} ${count === 1 ? "spot" : "spots"} reserved`
     );
-    document.getElementById("dialogReservationCount").textContent = String(count);
+    //document.getElementById("dialogReservationCount").textContent = String(count);
     document.getElementById("todayReservations").textContent = count
         ? thisHunterSpots.map((spot) => cellLabel(spot, true)).join("; ")
         : "No spots reserved yet.";
@@ -417,10 +417,6 @@ document.getElementById("helpButton").addEventListener("click", () => {
     openDialog(document.getElementById("helpDialog"));
 });
 
-document.getElementById("todayButton").addEventListener("click", () => {
-    openDialog(document.getElementById("todayDialog"));
-});
-
 document.getElementById("logout").addEventListener("click", () => {
     openDialog(document.getElementById("logoutDialog"));
 });
@@ -443,7 +439,7 @@ if (typeof ResizeObserver === "function") {
     new ResizeObserver(scheduleCanvasResize).observe(mapViewport);
 }
 
-document.getElementById("hunterLabel").textContent = `Hunter #${hID}`;
+//document.getElementById("hunterLabel").textContent = `Hunter #${hID}`;
 rebuildAvailabilityIndex();
 updateInterface();
 scheduleCanvasResize();
