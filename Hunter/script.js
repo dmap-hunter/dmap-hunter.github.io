@@ -397,6 +397,7 @@ async function reserveSelectedSpot() {
     } finally {
         isReserving = false;
         updateInterface();
+        window.location.href = "../HunterLogin/HunterLogin.html";
     }
 }
 

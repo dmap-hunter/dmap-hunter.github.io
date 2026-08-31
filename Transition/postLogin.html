@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../styles.css">
+  <title>Reserve Complete</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      background: var(--cream);
+      color: var(--forest-dark);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    main {
+      width: min(760px, 100%);
+      text-align: center;
+      padding: clamp(34px, 7vw, 72px) clamp(24px, 7vw, 70px);
+      border: 5px solid var(--forest);
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    }
+
+    .checkmark {
+      display: grid;
+      place-items: center;
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: white;
+      font-size: 52px;
+      font-weight: bold;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.25rem); margin: 0 0 22px; }
+    p { font-size: clamp(1.25rem, 2.5vw, 1.6rem); line-height: 1.5; margin: 0 0 16px; }
+    #hunterName { color: var(--forest); }
+
+    button {
+      width: 100%;
+      max-width: 460px;
+      min-height: 72px;
+      margin-top: 24px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--forest);
+      color: white;
+      cursor: pointer;
+      font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+      font-weight: bold;
+    }
+
+    button:hover, button:focus-visible { background: #23633d; outline: 4px solid var(--gold); outline-offset: 3px; }
+    .help { margin-top: 38px; font-size: 1.05rem; color: #354037; }
+    .help a { color: var(--forest); font-weight: bold; }
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+center {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    border-radius: 12px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #1e3c72;
+    margin-bottom: 10px;
+    font-size: 4em;
+    text-align: center;
+}
+
+h3 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-size: 2em;
+    text-align: center;
+}
+
+select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select:hover {
+    border-color: #2a5298;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(42, 82, 152, 0.1);
+}
+
+select:focus {
+    outline: none;
+    border-color: #1e3c72;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 14px 20px;
+    margin-top: 30px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 2.5em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    center {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    select {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+
+    button#submitID {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="checkmark" aria-hidden="true">✓</div>
+    <h1>Success!</h1>
+    <p>You have successfully reserved a cell.<br>Login again to reserve another cell or checkout.</p>
+    <p>You are all set.</p>
+    <button type="button" id="returnButton">Return to Login</button>
+    <p class="help">If anything went wrong, please text <b>(303) 563-9178</b>.</p>
+  </main>
+
+  <script>
+    document.getElementById("returnButton").addEventListener("click", () => {
+      window.location.href = '../HunterLogin/HunterLogin.html';
+    });
+  </script>
+</body>
+</html>
