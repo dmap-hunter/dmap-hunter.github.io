@@ -63,8 +63,8 @@ async function checkInitial(date = new Date()){
             .doc(thisDate);
 
         const hunterSpotsSnap = await hunterSpotsRef.get();
-
-        thisHunterSpots = asCellArray(hunterSpotsSnap);
+        const cells = hunterSpotsSnap.data()?.cells;
+        thisHunterSpots = Array.isArray(cells) ? cells : [];
 
         if(thisHunterSpots.length > 0){
             window.location.href = '../Transition/choose.html';
