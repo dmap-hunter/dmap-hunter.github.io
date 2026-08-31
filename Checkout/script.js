@@ -63,7 +63,7 @@ async function addData(){
     var tButton = parseInt(await snap2.data()?.button) || 0;
     var tDoe = parseInt(await snap2.data()?.doe) || 0;
     var tStart = parseInt(await snap2.data()?.start) || 0;
-    var tHours = parseInt(await snap2.data()?.hours) || 0;
+    var tHours = (parseInt(await snap2.data()?.hours) || 0) / 1000 / 60 / 60;
 
     var nums = [parseInt(bucksS.value), parseInt(buttonsS.value), parseInt(doesS.value), (Date.now() - tStart) / 1000 / 60 / 60]; //Buck, Button, Doe, Date
 
@@ -75,7 +75,7 @@ async function addData(){
            hours: nums[3]
         });
     } catch{
-        //window.location.href = '../Transition/choose.html';
+        window.location.href = '../Transition/choose.html';
         return;
     }
 

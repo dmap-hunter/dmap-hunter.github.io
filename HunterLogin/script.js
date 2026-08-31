@@ -3,7 +3,6 @@ sessionStorage.setItem("hunterID", 0);
 var loggedIn = false;
 var hID = 0;
 
-
 var numberSelect = document.getElementById("hunterNumber");
 
 for (var i = 0; i<=50; i++){
@@ -46,7 +45,24 @@ async function checkInitial(){
     if(hunterID === initial){
         hID = number;
         sessionStorage.setItem("hunterID", hID);
-        window.location.href = '../Transition/choose.html';
+        
+        const hunterSpotsRef = db
+            .collection("reserved")
+            .doc("hunters")
+            .collection("hunterID")
+            .doc("h" + hID)
+            .collection("dates")
+            .doc(thisDate);
+
+        const hunterSpotsSnap = await hunterSpotsRef.get();
+
+        thisHunterSpots = asCellArray(hunterSpotsSnap);
+
+        if(thisHunterSpots.length > 0){
+            window.location.href = '../Transition/choose.html';
+        } else{
+            window.location.href = '../Hunter/hunter.html';
+        }
     }
 }
 
