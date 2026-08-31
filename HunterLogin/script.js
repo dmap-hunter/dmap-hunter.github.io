@@ -31,7 +31,7 @@ function getLocalDateKey(date = new Date()) {
 
 var submitID = document.getElementById("submitID");
 
-async function checkInitial(){
+async function checkInitial(date = new Date()){
     var number = document.getElementById("hunterNumber").value;
     var initial = document.getElementById("hunterInitial").value;
     
