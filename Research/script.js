@@ -1,5 +1,3 @@
-//checkPassword(sessionStorage.getItem("passwordSaved"));
-
 const canvas = document.getElementById("mapCanvas");
 const ctx = canvas.getContext("2d");
 const mapViewport = document.getElementById("mapViewport");
