@@ -1,8 +1,10 @@
 Software:
 7) Fix password system
 12) add auto-log-out
-11) add catch in checkout if hunter checkouts without reserving cells
-
+11) add catch in checkout if hunter checkouts without reserving cells (or just block them from accessing the checkout page actually)
+13) add hours logged
+14) Hunter auto-checkout
+15) do hunters need to be able to account for their lunch hours?
 
 Post-software:
 1) Update maps to actual Duke Forest maps w/ hunting regions

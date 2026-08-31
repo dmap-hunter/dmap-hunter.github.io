@@ -121,7 +121,8 @@ async function reserveHunterCell(spot, date = new Date()) {
         }
 
         const cellUpdate = {
-            cells: firebase.firestore.FieldValue.arrayUnion(spot)
+            cells: firebase.firestore.FieldValue.arrayUnion(spot),
+            start: Date.now()
         };
         transaction.set(hunterRef, cellUpdate, { merge: true });
         transaction.set(hunterIdRef, cellUpdate, { merge: true });

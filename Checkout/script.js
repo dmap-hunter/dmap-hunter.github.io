@@ -44,9 +44,10 @@ async function addData(){
         .collection("hunterID")
         .doc("h" + hID);
     var snap = await hunterRef.get();
-    var pBuck = parseInt(await snap.data()?.buck);
-    var pButton = parseInt(await snap.data()?.button);
-    var pDoe = parseInt(await snap.data()?.doe);
+    var pBuck = parseInt(await snap.data()?.buck) || 0;
+    var pButton = parseInt(await snap.data()?.button) || 0;
+    var pDoe = parseInt(await snap.data()?.doe) || 0;
+    var pHours = parseInt(await snap.data()?.hours) || 0;
 
     console.log(hunterRef);
 
@@ -58,17 +59,20 @@ async function addData(){
         .collection("dates")
         .doc(thisDate);
     var snap2 = await dataRef.get();
-    var tBuck = parseInt(await snap2.data()?.buck);
-    var tButton = parseInt(await snap2.data()?.button);
-    var tDoe = parseInt(await snap2.data()?.doe);
+    var tBuck = parseInt(await snap2.data()?.buck) || 0;
+    var tButton = parseInt(await snap2.data()?.button) || 0;
+    var tDoe = parseInt(await snap2.data()?.doe) || 0;
+    var tStart = parseInt(await snap2.data()?.start) || 0;
+    var tHours = parseInt(await snap2.data()?.hours) || 0;
 
-    var nums = [parseInt(bucksS.value), parseInt(buttonsS.value), parseInt(doesS.value)]; //Buck, Button, Doe
+    var nums = [parseInt(bucksS.value), parseInt(buttonsS.value), parseInt(doesS.value), (Date.now() - tStart) / 1000 / 60 / 60]; //Buck, Button, Doe, Date
 
     try{
         await dataRef.update({
             buck: tBuck + nums[0],
             button: tButton + nums[1],
-           doe: tDoe + nums[2]
+           doe: tDoe + nums[2],
+           hours: nums[3]
         });
     } catch{
         //window.location.href = '../Transition/choose.html';
@@ -78,7 +82,8 @@ async function addData(){
     await hunterRef.update({
         buck: pBuck + nums[0],
         button: pButton + nums[1],
-        doe: pDoe + nums[2]
+        doe: pDoe + nums[2],
+        hours: pHours - tHours + nums[3]
     });
 
     window.location.href = '../Transition/postCheckout.html';
