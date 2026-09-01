@@ -1,5 +1,4 @@
 Software:
-7) Fix password system
 
 Post-software:
 15) do hunters need to be able to account for their lunch hours?
